@@ -1,0 +1,22 @@
+{
+  "author":"BuildFire"
+,"pluginName":"googleAppPresentationPlugin",
+  "pluginDescription":"googleAppPresentation Description"
+,"supportEmail":"support@buildfire.com"
+,"pluginIcon": "icon.png"
+,"control":{
+  "content":{
+    "enabled":true
+  }
+, "design":{
+    "enabled":false
+  }
+, "settings":{
+    "enabled":false
+  }
+}
+,"widget":{
+},
+  "features" : [],
+  "languages" : ["en"]
+}
