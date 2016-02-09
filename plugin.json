@@ -1,7 +1,7 @@
 {
   "author":"BuildFire"
-,"pluginName":"googleAppPresentationPlugin",
-  "pluginDescription":"googleAppPresentation Description"
+,"pluginName":"googleSlidesPlugin",
+  "pluginDescription":"googleSlidesPlugin Description"
 ,"supportEmail":"support@buildfire.com"
 ,"pluginIcon": "icon.png"
 ,"control":{
