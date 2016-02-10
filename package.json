@@ -1,7 +1,7 @@
 {
-  "name": "googleAppPresentation-plugin",
+  "name": "googleSlidesPlugin",
   "version": "0.0.0",
-  "description": "googleAppPresentation plugin description",
+  "description": "googleSlidesPlugin  description",
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install",
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
