@@ -6,7 +6,6 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0,minimum-scale=1.0,
         maximum-scale=1.0">
-    <meta name=”viewport” content=”width=320, initial-scale=.9″>
 
     <!-- CSS -->
   <link href="../../../styles/helper.css" rel="stylesheet">
@@ -35,11 +34,12 @@
 </head>
 <body>
 <div class="content"
-     style="-webkit-overflow-scrolling: touch !important;overflow: auto; height: 100%;"
+     style="-webkit-overflow-scrolling: touch !important;height: 100%;"
      ng-controller="WidgetHomeCtrl as WidgetHome">
-  <iframe src="{{WidgetHome.data.content.url | returnUrl }}"
+<iframe src="{{WidgetHome.data.content.url | returnUrl }}"
           ng-if="WidgetHome.data.content.url"
-          style="height: 100%;position: relative"   frameborder="0"  webkitAllowFullScreen mozallowfullscreen allowfullscreen=""></iframe>
-</div>
+          style="height: 100%;position: relative" ></iframe>
+
+   </div>
 </body>
 </html>

@@ -47,6 +47,12 @@
 
                     var regExp = /^https?:\/\/.+\/presentation\/.+/;
                     return regExp.test(url);
+                },
+                formatUrl: function (url) {
+                    var substr="https://docs.google.com/presentation/d/";
+                   var array= url.split(substr);
+                    var newArray=array[1].split('/');
+                    return substr+newArray[0]+'/preview';
                 }
 
             }
