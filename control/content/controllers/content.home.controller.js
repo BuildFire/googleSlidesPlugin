@@ -37,8 +37,9 @@
             ContentHome.validateUrl = function () {
                 //  var result =
                 if(Utils.validateUrl(ContentHome.pptUrl)){
+
                             ContentHome.isUrlValidated = true;
-                            ContentHome.data.content.url = ContentHome.pptUrl;
+                            ContentHome.data.content.url =  Utils.formatUrl(ContentHome.pptUrl);
                             ContentHome.saveData(JSON.parse(angular.toJson(ContentHome.data)), TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO);
                 }else{
                     ContentHome.isUrlValidated = false;
