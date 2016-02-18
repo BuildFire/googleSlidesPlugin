@@ -5,7 +5,7 @@ describe('Unit: googleAppsPresentationWidget app', function () {
     beforeEach(inject(function () {
 
     }));
-    var WidgetHome, scope, $rootScope, $controller, Buildfire, ActionItems, TAG_NAMES, STATUS_CODE, LAYOUTS, STATUS_MESSAGES, CONTENT_TYPE, q, Utils;
+    var WidgetHome, scope, $rootScope, $controller, Buildfire, TAG_NAMES, STATUS_CODE, LAYOUTS, STATUS_MESSAGES, CONTENT_TYPE, q, Utils;
 
     beforeEach(inject(function (_$rootScope_, _$q_, _$controller_, _TAG_NAMES_, _STATUS_CODE_, _STATUS_MESSAGES_) {
       $rootScope = _$rootScope_;
@@ -26,7 +26,7 @@ describe('Unit: googleAppsPresentationWidget app', function () {
             }
           }
 
-        },     spinner: {
+        }, spinner: {
           hide: function () {
             return {}
           },
@@ -36,7 +36,6 @@ describe('Unit: googleAppsPresentationWidget app', function () {
 
         }
       };
-        ActionItems = jasmine.createSpyObj('ActionItems', ['showDialog']);
       inject(function (_$filter_) {
         $filter = _$filter_;
       });
@@ -49,18 +48,17 @@ describe('Unit: googleAppsPresentationWidget app', function () {
         $q: q,
         Buildfire: Buildfire,
         TAG_NAMES: TAG_NAMES,
-        ActionItems: ActionItems,
         STATUS_CODE: STATUS_CODE,
         CONTENT_TYPE: CONTENT_TYPE,
-        LAYOUTS: LAYOUTS,
+        LAYOUTS: LAYOUTS
       });
     });
     describe('It will test the defined methods', function () {
 
       it('it should pass if WidgetHome.init is called for error', function () {
-        var result= {};
+        var result = {};
         WidgetHome.init();
-       WidgetHome.success({data:{content:{}}})
+        WidgetHome.success({data: {content: {}}})
       });
       it('it should pass if WidgetHome.init is called for error', function () {
         WidgetHome.init();
@@ -69,12 +67,13 @@ describe('Unit: googleAppsPresentationWidget app', function () {
 
       it('it should pass if  WidgetHome.onUpdateCallback is called for error', function () {
         var event = {
-          tag:TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO
-        }
-        WidgetHome.data= {
-          content:""
-        }
-              WidgetHome.onUpdateCallback(event)
+          tag: TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO,
+          data: {content: {}}
+        };
+        WidgetHome.data = {
+          content: {}
+        };
+        WidgetHome.onUpdateCallback(event)
       });
 
     });
@@ -83,10 +82,11 @@ describe('Unit: googleAppsPresentationWidget app', function () {
 
       it('should return the updated Url with filter returnUrl', function () {
         // Arrange.
-        var url = 'https://form.jotform.com/60068237709257', result;
-        var updatedUrl = 'https://form.jotform.com/60068237709257';
+        var url = 'https://docs.google.com/presentation/d/17M5SaARhkYaAWe3mtDtfRa7II2mWkli9RfVLG4oz_uI/edit', result;
+        var updatedUrl = 'https://docs.google.com/presentation/d/17M5SaARhkYaAWe3mtDtfRa7II2mWkli9RfVLG4oz_uI/edit';
         // Act.
-        result = $filter('returnUrl')(url);});
+        result = $filter('returnUrl')(url);
+      });
 
     });
   });
