@@ -1,10 +1,11 @@
 'use strict';
 
-(function (angular, window) {
+(function (angular, buildfire) {
   angular
     .module('googleAppsPresentationPluginContent')
     .controller('ContentHomeCtrl', ['TAG_NAMES', 'DataStore', '$timeout', 'Utils',
       function (TAG_NAMES, DataStore, $timeout, Utils) {
+        buildfire.datastore.disableRefresh();
 
         var ContentHome = this;
         ContentHome.MODE_TYPE = {
@@ -85,4 +86,4 @@
           ContentHome.saveData(ContentHome.data, TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO);
         };
       }]);
-})(window.angular, window);
+})(window.angular, window.buildfire);
