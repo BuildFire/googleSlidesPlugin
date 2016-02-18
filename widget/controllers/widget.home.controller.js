@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('googleAppsPresentationWidget')
-    .controller('WidgetHomeCtrl', ['$scope', 'Buildfire', 'DataStore', 'TAG_NAMES', '$rootScope',
-      function ($scope, Buildfire, DataStore, TAG_NAMES, $rootScope) {
+    .controller('WidgetHomeCtrl', ['$scope', 'Buildfire', 'DataStore', 'TAG_NAMES', '$rootScope', 'STATUS_CODE',
+      function ($scope, Buildfire, DataStore, TAG_NAMES, $rootScope, STATUS_CODE) {
         var WidgetHome = this;
 
         /*
@@ -15,6 +15,10 @@
             WidgetHome.data = result.data;
             if (!WidgetHome.data.content)
               WidgetHome.data.content = {};
+            if (WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'preview')
+              WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/edit', '/preview');
+            else if ((WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'editable'))
+              WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/preview', '/edit');
             console.log(">>>>>", WidgetHome.data);
           };
           WidgetHome.error = function (err) {
@@ -28,8 +32,12 @@
         WidgetHome.onUpdateCallback = function (event) {
           if (event && event.tag === TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO) {
             WidgetHome.data = event.data;
-            if (WidgetHome.data&&!WidgetHome.data.content)
+            if (WidgetHome.data && !WidgetHome.data.content)
               WidgetHome.data.content = {};
+            if (WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'preview')
+              WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/edit', '/preview');
+            else if ((WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'editable'))
+              WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/preview', '/edit');
           }
         };
 
@@ -38,10 +46,10 @@
         WidgetHome.init();
 
       }])
-      .filter('returnUrl', ['$sce', function ($sce) {
-        return function (url) {
-          return $sce.trustAsResourceUrl(url);
-        }
-      }]);
+    .filter('returnUrl', ['$sce', function ($sce) {
+      return function (url) {
+        return $sce.trustAsResourceUrl(url);
+      }
+    }]);
 
 })(window.angular);

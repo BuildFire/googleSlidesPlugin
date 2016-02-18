@@ -41,8 +41,9 @@
         };
         ContentHome.init();
         ContentHome.validateUrl = function () {
-          //  var result =
           if (Utils.validateUrl(ContentHome.pptUrl)) {
+            ContentHome.data.content.url = ContentHome.pptUrl;
+            ContentHome.data.content.mode = ContentHome.mode;
             ContentHome.isUrlValidated = true;
             ContentHome.saveData(JSON.parse(angular.toJson(ContentHome.data)), TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO);
           } else {
@@ -78,6 +79,10 @@
         };
         ContentHome.gotToSite = function () {
           window.open('https://accounts.google.com', '_blank');
-        }
+        };
+        ContentHome.changeMode = function (mode) {
+          ContentHome.data.content.mode = mode;
+          ContentHome.saveData(ContentHome.data, TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO);
+        };
       }]);
 })(window.angular, window);
