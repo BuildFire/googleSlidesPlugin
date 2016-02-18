@@ -16,7 +16,7 @@
             if (!WidgetHome.data.content)
               WidgetHome.data.content = {};
             console.log(">>>>>", WidgetHome.data);
-          }
+          };
           WidgetHome.error = function (err) {
             if (err && err.code !== STATUS_CODE.NOT_FOUND) {
               console.error('Error while getting data', err);
