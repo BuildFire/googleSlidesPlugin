@@ -81,6 +81,11 @@
         ContentHome.gotToSite = function () {
           window.open('https://accounts.google.com', '_blank');
         };
+
+        ContentHome.gotToSupport = function () {
+          window.open('https://support.google.com/drive/answer/2494822?hl=en', '_blank');
+        };
+
         ContentHome.changeMode = function (mode) {
           ContentHome.data.content.mode = mode;
           ContentHome.saveData(ContentHome.data, TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO);

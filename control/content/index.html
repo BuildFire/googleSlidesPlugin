@@ -26,14 +26,16 @@
     <div class="main pull-right col-md-9 padding-left-zero row">
       <div class="radio radio-primary radio-inline">
         <input id="preview" type="radio" ng-model="ContentHome.mode"
-               ng-value='ContentHome.MODE_TYPE.PREVIEW'  ng-se=""
-               name="mode" ng-change="ContentHome.changeMode(ContentHome.MODE_TYPE.PREVIEW)">
+               ng-value='ContentHome.MODE_TYPE.PREVIEW' ng-se=""
+               name="mode"
+               ng-change="ContentHome.changeMode(ContentHome.MODE_TYPE.PREVIEW)">
         <label for="preview">Preview Mode</label>
       </div>
       <div class="radio radio-primary radio-inline">
         <input id="edit" type="radio" ng-model="ContentHome.mode"
                ng-value='ContentHome.MODE_TYPE.EDITABLE'
-               name="mode" ng-change="ContentHome.changeMode(ContentHome.MODE_TYPE.EDITABLE)">
+               name="mode"
+               ng-change="ContentHome.changeMode(ContentHome.MODE_TYPE.EDITABLE)">
         <label for="edit">Editable Mode</label>
       </div>
       <hr class="none">
@@ -64,10 +66,17 @@
   <hr class="none">
   <div class="item clearfix row">
     <div class="col-md-9 pull-right">
-      <p>Note : Please make sure you are logged into your Google account and
+      <p>Note 1: Please make sure you are logged into your Google account and
         have access to the linked file to properly view it. You can click
         <a ng-click="ContentHome.gotToSite()">here</a>
         to sign in.</p>
+
+      <p>Note 2: If you want to send a file or folder to someone so that they
+        can
+        view, edit, or comment on it, you can share it with them directly in
+        Google Drive, Docs, Sheets, or Slides, or through a link or email
+        attachment. <a ng-click="ContentHome.gotToSupport()">Here</a> is a
+        link on how to do it.</p>
     </div>
   </div>
   <div class="item clearfix row">
