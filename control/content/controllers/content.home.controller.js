@@ -25,13 +25,17 @@
         ContentHome.init = function () {
           ContentHome.success = function (result) {
             console.info('init success result:', result);
-            if (result) {
+            if (result.data && result.id) {
               ContentHome.data = result.data;
               if (!ContentHome.data.content)
                 ContentHome.data.content = {};
               ContentHome.pptUrl = ContentHome.data.content.url;
               if (ContentHome.data.content.mode)
                 ContentHome.mode = ContentHome.data.content.mode;
+            } else {
+              var dummyData = {url: "https://docs.google.com/presentation/d/1GajPA3eOHYT39vkDj_NX8v0FjiumnBgGtOyIHROyhd8/preview#slide=id.gc6fa3c898_0_0"};
+              ContentHome.pptUrl = dummyData.url;
+              ContentHome.mode = ContentHome.MODE_TYPE.PREVIEW;
             }
           };
           ContentHome.error = function (err) {
