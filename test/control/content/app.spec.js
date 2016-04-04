@@ -86,8 +86,8 @@ describe('Unit: googleAppsPresentationPluginContent content app', function () {
           }
         };
         ContentHome.init();
-        var data = {};
-        ContentHome.success();
+        var data = {}, result={data:{}};
+        ContentHome.success(result);
         expect(ContentHome.data).toEqual(ContentHome.dummydata)
       });
     });
