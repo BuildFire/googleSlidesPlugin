@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('googleAppsPresentationWidget')
-    .controller('WidgetHomeCtrl', ['$scope', 'Buildfire', 'DataStore', 'TAG_NAMES', '$rootScope',
-      function ($scope, Buildfire, DataStore, TAG_NAMES, $rootScope) {
+    .controller('WidgetHomeCtrl', ['$scope', 'Buildfire', 'DataStore', 'TAG_NAMES', '$rootScope', 'STATUS_CODE',
+      function ($scope, Buildfire, DataStore, TAG_NAMES, $rootScope, STATUS_CODE) {
         var WidgetHome = this;
 
         /*
@@ -12,11 +12,25 @@
          */
         WidgetHome.init = function () {
           WidgetHome.success = function (result) {
-            WidgetHome.data = result.data;
-            if (!WidgetHome.data.content)
-              WidgetHome.data.content = {};
-            console.log(">>>>>", WidgetHome.data);
-          }
+            if(result.data && result.id) {
+              WidgetHome.data = result.data;
+              if (!WidgetHome.data.content)
+                WidgetHome.data.content = {};
+              if (WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'preview')
+                WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/edit', '/preview');
+              else if ((WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'editable'))
+                WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/preview', '/edit');
+              console.log(">>>>>", WidgetHome.data);
+            }
+            else
+            {
+              WidgetHome.data = {
+                content: {}
+              };
+              var dummyData = {url: "https://docs.google.com/presentation/d/1GajPA3eOHYT39vkDj_NX8v0FjiumnBgGtOyIHROyhd8/preview#slide=id.gc6fa3c898_0_0"};
+              WidgetHome.data.content.url = dummyData.url;
+            }
+          };
           WidgetHome.error = function (err) {
             if (err && err.code !== STATUS_CODE.NOT_FOUND) {
               console.error('Error while getting data', err);
@@ -28,8 +42,12 @@
         WidgetHome.onUpdateCallback = function (event) {
           if (event && event.tag === TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO) {
             WidgetHome.data = event.data;
-            if (WidgetHome.data&&!WidgetHome.data.content)
+            if (WidgetHome.data && !WidgetHome.data.content)
               WidgetHome.data.content = {};
+            if (WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'preview')
+              WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/edit', '/preview');
+            else if ((WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'editable'))
+              WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/preview', '/edit');
           }
         };
 
@@ -38,10 +56,10 @@
         WidgetHome.init();
 
       }])
-      .filter('returnUrl', ['$sce', function ($sce) {
-        return function (url) {
-          return $sce.trustAsResourceUrl(url);
-        }
-      }]);
+    .filter('returnUrl', ['$sce', function ($sce) {
+      return function (url) {
+        return $sce.trustAsResourceUrl(url);
+      }
+    }]);
 
 })(window.angular);

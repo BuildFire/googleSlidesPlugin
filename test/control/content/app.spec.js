@@ -81,12 +81,13 @@ describe('Unit: googleAppsPresentationPluginContent content app', function () {
       it('it should pass if ContentHome.init is called', function () {
         ContentHome.dummydata = {
           content:{
-            url:null
+            url:null,
+            mode : ""
           }
         };
         ContentHome.init();
-        var data = {};
-        ContentHome.success();
+        var data = {}, result={data:{}};
+        ContentHome.success(result);
         expect(ContentHome.data).toEqual(ContentHome.dummydata)
       });
     });
