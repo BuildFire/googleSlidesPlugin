@@ -1,6 +1,6 @@
 'use strict';
 
-(function (angular) {
+(function (angular,buildfire) {
   angular
     .module('googleAppsPresentationWidget')
     .controller('WidgetHomeCtrl', ['$scope', 'Buildfire', 'DataStore', 'TAG_NAMES', '$rootScope', 'STATUS_CODE',
@@ -39,6 +39,21 @@
           DataStore.get(TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO).then(WidgetHome.success, WidgetHome.error);
         };
 
+
+
+        //Refresh web page on pulling the tile bar
+
+        buildfire.datastore.onRefresh(function () {
+          var iFrame = document.getElementById("slideFrame"),
+            url = iFrame.src,
+            hashIndex = url.indexOf("#");
+
+          if(hashIndex !== -1) {
+            url = url.substr(0, hashIndex) + "?v=test" + url.substr(hashIndex);
+          }
+          iFrame.src = url + "";
+        });
+
         WidgetHome.onUpdateCallback = function (event) {
           if (event && event.tag === TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO) {
             WidgetHome.data = event.data;
@@ -62,4 +77,4 @@
       }
     }]);
 
-})(window.angular);
+})(window.angular, window.buildfire);

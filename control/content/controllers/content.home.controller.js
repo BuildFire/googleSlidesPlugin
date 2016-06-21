@@ -5,7 +5,6 @@
     .module('googleAppsPresentationPluginContent')
     .controller('ContentHomeCtrl', ['TAG_NAMES', 'DataStore', '$timeout', 'Utils',
       function (TAG_NAMES, DataStore, $timeout, Utils) {
-        buildfire.datastore.disableRefresh();
 
         var ContentHome = this;
         ContentHome.MODE_TYPE = {
