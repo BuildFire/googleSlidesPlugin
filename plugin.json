@@ -4,7 +4,7 @@
   "pluginDescription":"Google Slides makes your ideas shine with a variety of presentation themes, hundreds of fonts, embedded video, animations, and more.Related Topics:Google Plus, Students"
 ,"supportEmail":"support@buildfire.com"
 ,"pluginIcon": "icon.png"
-, "supportSite":"http://support.appdocumentation.com/knowledge-base/google-slides-plugin-tutorial/"
+, "supportSite":"http://learn.appdocumentation.com/plugin-tutorials/google-slides-plugin-tutorial"
 ,"control":{
   "content":{
     "enabled":true
