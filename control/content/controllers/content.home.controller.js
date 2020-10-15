@@ -45,6 +45,10 @@
         };
         ContentHome.init();
         ContentHome.validateUrl = function () {
+          if(ContentHome.pptUrl.includes("https://drive.google.com/file/d")){
+            var ppId=ContentHome.pptUrl.split("https://drive.google.com/file/d/")[1].split("/view?")[0];
+            ContentHome.pptUrl="https://docs.google.com/presentation/d/"+ppId+"/preview";
+          }
           if (Utils.validateUrl(ContentHome.pptUrl)) {
             ContentHome.data.content.url = ContentHome.pptUrl;
             ContentHome.data.content.mode = ContentHome.mode;

@@ -1,0 +1,73 @@
+
+iframe{
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+  }
+  .fullScreen:hover{
+	filter: brightness(100%);
+  }
+  .exitFullScreen:hover{
+	filter: sepia(100%);
+  }
+  .fullScreen{
+	--docs-material-font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif !important;
+	--docs-material-font-weight-normal: 400;
+	--docs-material-font-weight-bold: 500;
+	--docs-material-font-size-normal: 14px;
+	--docs-material-font-size-9: 9px;
+	--docs-material-font-size-11: 11px;
+	--docs-material-font-size-12: 12px;
+	--docs-material-font-size-22: 22px;
+	--docs-material-header-font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif !important;
+	font: normal 13px "Trebuchet MS",Tahoma,Arial,sans-serif !important;
+	cursor: pointer;
+	color: #cecece;
+	font-size: 10px;
+	line-height: 14px;
+	font-family: Roboto,Arial,sans-serif !important;
+	user-select: none;
+	position: relative;
+	display: inline-block;
+	height: 24px;
+	width: 24px;
+	vertical-align: middle;
+	filter: brightness(70%);
+	background: url(../images/enterFullScreen.png) !important;
+  }
+  .exitFullScreen{
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+	--docs-material-font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif !important;
+	--docs-material-font-weight-normal: 400;
+	--docs-material-font-weight-bold: 500;
+	--docs-material-font-size-normal: 14px;
+	--docs-material-font-size-9: 9px;
+	--docs-material-font-size-11: 11px;
+	--docs-material-font-size-12: 12px;
+	--docs-material-font-size-22: 22px;
+	--docs-material-header-font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif !important;
+	font: normal 13px "Trebuchet MS",Tahoma,Arial,sans-serif !important;
+	cursor: pointer;
+	font-size: 10px;
+	line-height: 14px;
+	color: #cecece !important;
+	font-family: Roboto,Arial,sans-serif !important;
+	user-select: none;
+	position: relative;
+	display: inline-block;
+	height: 24px;
+	width: 24px;
+	vertical-align: middle;
+	filter: brightness(100%);
+	background: url(../images/exitFullScreen.png) !important;
+  }
+  .containerFS{
+	visibility: hidden;
+	background-color: #323232 !important;
+
+  }
