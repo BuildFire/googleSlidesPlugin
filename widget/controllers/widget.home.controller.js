@@ -6,6 +6,7 @@
     .controller('WidgetHomeCtrl', ['$scope', 'Buildfire', 'DataStore', 'TAG_NAMES', '$rootScope', 'STATUS_CODE',
       function ($scope, Buildfire, DataStore, TAG_NAMES, $rootScope, STATUS_CODE) {
         var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var isAndroid = /(android)/i.test(navigator.userAgent);
         var WidgetHome = this;
         var isInFullScreen=false;
         var frame;
@@ -13,6 +14,8 @@
         var listeners=false;
         var innitOffsetTop=0;
         var innitOffsetLeft=0;
+        var titleBarLoaded=true;
+        var disableAutoRotate=false;
         var innitHeight;
         /*
          * Fetch user's data from datastore
@@ -66,11 +69,37 @@
         });
 
         window.oniFrameLoad = function(){
+          var previousOrientation=2;//2 portrait, 1 landscape
+          window.addEventListener("deviceorientation", function(event){
+            var xAxis = event.alpha;
+            var yAxis = event.beta;
+            var oTime;
+            if (((yAxis <= 25) && (yAxis >= -25) && (xAxis >= -160)) || (yAxis < -25) && (xAxis >= -20)) {
+        
+                if (previousOrientation != 1){
+                    previousOrientation = 1;
+                    clearTimeout(oTime);
+                    if(!isInFullScreen&&!disableAutoRotate)
+                      oTime = setTimeout(function(){ WidgetHome.rotate(); }, 200);
+                }
+        
+            } else if ((yAxis > 25) && (xAxis >= -20)){
+        
+                if (previousOrientation != 2){
+                    previousOrientation = 2;
+                    clearTimeout(oTime);
+                    if(isInFullScreen&&!disableAutoRotate)
+                      oTime = setTimeout(function(){WidgetHome.rotate();}, 200);
+                }
+            }
+          }, true);
+
+
             frame= document.getElementById("slideFrame");
             innitOffsetTop=frame.offsetTop;
             innitOffsetLeft=frame.offsetLeft;
             fullScreen = document.getElementById("containerFS");
-            fullScreen.style.left = innitOffsetLeft+((isIOS)?300:270)+"px";
+            fullScreen.style.left = innitOffsetLeft+((isIOS)?300:270)+((isAndroid)?5:0)+"px";
             innitHeight=innitOffsetTop+frame.getBoundingClientRect().height+((isIOS)?0:3)-30+"px"
             fullScreen.style.top = innitHeight;
             //fullScreen.style.visibility="visible";
@@ -80,36 +109,40 @@
 
             if(!listeners)
             window.addEventListener("resize",function(){
-              document.body.style.setProperty("background-color", "323232", "important");
-              if(isInFullScreen){
-                fullScreen.style.visibility="hidden";
-        
-                rotatedWidth = window.innerHeight;
-                rotatedHeight = window.innerWidth;
-                frame.style.width = (rotatedWidth+5)+"px";
-                frame.style.maxWidth = (rotatedWidth+5)+"px";
-                frame.style.height = rotatedHeight+"px";
-                
-                frame.style.left = (((rotatedHeight/2)-rotatedWidth/2)-2)+"px";
-                frame.style.top = ((rotatedHeight/2)-rotatedWidth/2)*(-1)+"px";
+              if(titleBarLoaded){
+                document.body.style.setProperty("background-color", "323232", "important");
+                if(isInFullScreen){
+                  fullScreen.style.visibility="hidden";
+          
+                  rotatedWidth = window.innerHeight;
+                  rotatedHeight = window.innerWidth;
+                  frame.style.width = (rotatedWidth+5)+"px";
+                  frame.style.maxWidth = (rotatedWidth+5)+"px";
+                  frame.style.height = rotatedHeight+"px";
+                  
+                  frame.style.left = (((rotatedHeight/2)-rotatedWidth/2)-2)+"px";
+                  frame.style.top = ((rotatedHeight/2)-rotatedWidth/2)*(-1)+"px";
 
-                fullScreen.style.left = innitOffsetLeft-1+"px";
-                fullScreen.style.top = innitOffsetTop+((isIOS)?300:268)+"px";
-                clearTimeout(time);
-                time = setTimeout(function(){ fullScreen.style.visibility="visible"; }, 200);
-              }else{
-                fullScreen.style.left = innitOffsetLeft+((isIOS)?300:270)+"px";
-                innitHeight=frame.offsetTop+frame.getBoundingClientRect().height-30+"px"
-                fullScreen.style.top = innitHeight;  
-              }
+                  fullScreen.style.left = innitOffsetLeft-((isAndroid)?0:1)+"px";
+                  fullScreen.style.top = innitOffsetTop+((isIOS)?300:268)+((isAndroid)?5:0)+"px";
+                  clearTimeout(time);
+                  time = setTimeout(function(){ fullScreen.style.visibility="visible"; }, 500);
+                }else{
+                  fullScreen.style.left = innitOffsetLeft+((isIOS)?300:270)+((isAndroid)?5:0)+"px";
+                  innitHeight=frame.offsetTop+frame.getBoundingClientRect().height-30+"px";
+                  fullScreen.style.top = innitHeight;  
+                }
+            }
             },true);
 
             if(!listeners)
             fullScreen.addEventListener('click', function(){
+              disableAutoRotate=true;
               WidgetHome.rotate();
             });
             listeners=true;
         }
+
 
         WidgetHome.hideShowRotation = function()
         {
@@ -133,11 +166,17 @@
           }
         }
 
+        var goBack = buildfire.navigation.onBackButtonClick ;
+        buildfire.navigation.onBackButtonClick = function(){
+          if(isInFullScreen){WidgetHome.rotate();disableAutoRotate=true;}
+          else goBack();
+        }
         WidgetHome.rotate = function(){
           var rotatedWidth;
           var rotatedHeight;
           document.body.style.setProperty("background-color", "black", "important");
             if(!isInFullScreen){
+              buildfire.appearance.titlebar.hide();
               fullScreen.style.paddingLeft="3px";
               document.getElementById("fullScreen").classList.remove("fullScreen");
               document.getElementById("fullScreen").classList.add("exitFullScreen");
@@ -149,7 +188,6 @@
               frame.style.oTransform = 'rotate(90deg)'; 
               frame.style.transform = "rotate(90deg)";
               fullScreen.style.visibility="hidden";
-              setTimeout(function(){fullScreen.style.visibility="visible";}, 300);
       
               frame.style.width = (rotatedWidth+5)+"px";
               frame.style.maxWidth = (rotatedWidth+5)+"px";
@@ -158,12 +196,14 @@
               frame.style.left = (((rotatedHeight/2)-rotatedWidth/2)-2)+"px";
               frame.style.top = ((rotatedHeight/2)-rotatedWidth/2)*(-1)+"px";
 
-              fullScreen.style.left = innitOffsetLeft-1+"px";
-              fullScreen.style.top = innitOffsetTop+((isIOS)?300:268)+"px";
+              fullScreen.style.left = innitOffsetLeft-((isAndroid)?0:1)+"px";
+              fullScreen.style.top = innitOffsetTop+((isIOS)?300:268)+((isAndroid)?5:0)+"px";
               fullScreen.style.bottom = "";
               fullScreen.style.right = "";
               isInFullScreen=true;
             }else{
+              titleBarLoaded=false;
+              buildfire.appearance.titlebar.show();
               fullScreen.style.paddingLeft="";
               document.getElementById("fullScreen").classList.remove("exitFullScreen");
               document.getElementById("fullScreen").classList.add("fullScreen");
@@ -173,7 +213,7 @@
               frame.style.oTransform = 'rotate(0deg)'; 
               frame.style.transform = "rotate(0deg)";
               fullScreen.style.visibility="hidden";
-              setTimeout(function(){fullScreen.style.visibility="visible";}, 300);
+              setTimeout(function(){fullScreen.style.visibility="visible"; titleBarLoaded=true;}, 500);
       
               frame.style.width = "100%";
               frame.style.maxWidth = "100%";
@@ -182,8 +222,7 @@
               frame.style.left = "";
               frame.style.top = "";
 
-
-              fullScreen.style.left = innitOffsetLeft+((isIOS)?300:270)+"px";
+              fullScreen.style.left = innitOffsetLeft+((isIOS)?300:270)+((isAndroid)?5:0)+"px";
               fullScreen.style.top = innitHeight;
               fullScreen.style.bottom = "";
               fullScreen.style.right = "";
