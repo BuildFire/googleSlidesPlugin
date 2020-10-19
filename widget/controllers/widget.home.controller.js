@@ -7,16 +7,11 @@
       function ($scope, Buildfire, DataStore, TAG_NAMES, $rootScope, STATUS_CODE) {
         var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         var isAndroid = /(android)/i.test(navigator.userAgent);
-        var WidgetHome = this;
-        var isInFullScreen=false;
-        var frame;
-        var fullScreen;
-        var listeners=false;
-        var innitOffsetTop=0;
-        var innitOffsetLeft=0;
-        var titleBarLoaded=true;
-        var disableAutoRotate=false;
-        var innitHeight;
+        var WidgetHome = this,isInFullScreen=false;
+        var frame,fullScreen;
+        var browserResized=false,listeners=false;
+        var innitOffsetTop=0,innitOffsetLeft=0;
+        var titleBarLoaded=true,disableAutoRotate=false,innitHeight;
         /*
          * Fetch user's data from datastore
          */
@@ -74,12 +69,14 @@
             var xAxis = event.alpha;
             var yAxis = event.beta;
             var oTime;
+            console.log(xAxis,yAxis);
+            if(xAxis!=null&&yAxis!=null&&!disableAutoRotate)
             if (((yAxis <= 25) && (yAxis >= -25) && (xAxis >= -160)) || (yAxis < -25) && (xAxis >= -20)) {
         
                 if (previousOrientation != 1){
                     previousOrientation = 1;
                     clearTimeout(oTime);
-                    if(!isInFullScreen&&!disableAutoRotate)
+                    if(!isInFullScreen)
                       oTime = setTimeout(function(){ WidgetHome.rotate(); }, 200);
                 }
         
@@ -88,7 +85,7 @@
                 if (previousOrientation != 2){
                     previousOrientation = 2;
                     clearTimeout(oTime);
-                    if(isInFullScreen&&!disableAutoRotate)
+                    if(isInFullScreen)
                       oTime = setTimeout(function(){WidgetHome.rotate();}, 200);
                 }
             }
@@ -112,6 +109,7 @@
               if(titleBarLoaded){
                 document.body.style.setProperty("background-color", "323232", "important");
                 if(isInFullScreen){
+                  browserResized=true;
                   fullScreen.style.visibility="hidden";
           
                   rotatedWidth = window.innerHeight;
@@ -127,6 +125,7 @@
                   fullScreen.style.top = innitOffsetTop+((isIOS)?300:268)+((isAndroid)?5:0)+"px";
                   clearTimeout(time);
                   time = setTimeout(function(){ fullScreen.style.visibility="visible"; }, 500);
+                  
                 }else{
                   fullScreen.style.left = innitOffsetLeft+((isIOS)?300:270)+((isAndroid)?5:0)+"px";
                   innitHeight=frame.offsetTop+frame.getBoundingClientRect().height-30+"px";
@@ -223,6 +222,10 @@
               frame.style.top = "";
 
               fullScreen.style.left = innitOffsetLeft+((isIOS)?300:270)+((isAndroid)?5:0)+"px";
+              if(browserResized){
+                innitHeight=frame.offsetTop+frame.getBoundingClientRect().height-80+"px";
+                browserResized=false;
+              }
               fullScreen.style.top = innitHeight;
               fullScreen.style.bottom = "";
               fullScreen.style.right = "";
