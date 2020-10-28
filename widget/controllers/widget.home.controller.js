@@ -5,19 +5,22 @@
     .module('googleAppsPresentationWidget')
     .controller('WidgetHomeCtrl', ['$scope', 'Buildfire', 'DataStore', 'TAG_NAMES', '$rootScope', 'STATUS_CODE',
       function ($scope, Buildfire, DataStore, TAG_NAMES, $rootScope, STATUS_CODE) {
+        var WidgetHome = this;
         var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        //var aspect = window.screen.width / window.screen.height
-        //var iPhoneXandIphone11 = isIOS && aspect.toFixed(3) === "0.462";
-        var homeBar=Number(getComputedStyle(document.documentElement).getPropertyValue("--sab").split('px')[0]);
-        var isAndroid = /(android)/i.test(navigator.userAgent);
-        var WidgetHome = this,isInFullScreen=false;
-        var frame,fullScreen,listeners=false;
-        var innitOffsetTop=0,innitOffsetLeft=0,innitialLoad=false,isItFailed=false;
+        var aspect = window.screen.width / window.screen.height
+        var iPhoneXandIphone11 = isIOS && aspect.toFixed(3) === "0.462";
+        //var homeBar=Number(getComputedStyle(document.documentElement).getPropertyValue("--sab").split('px')[0]);
+        //var isAndroid = /(android)/i.test(navigator.userAgent);
+        //var frame,fullScreen,listeners=false,isInFullScreen=false;;
+        //var innitOffsetTop=0,innitOffsetLeft=0,innitialLoad=false,isItFailed=false;
         /*
          * Fetch user's data from datastore
          */
+        
+
         WidgetHome.init = function () {
           WidgetHome.success = function (result) {
+            WidgetHome.initRotate();
             if(result.data && result.id) {
               WidgetHome.data = result.data;
               if (!WidgetHome.data.content)
@@ -28,7 +31,7 @@
               else if ((WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'editable')){
                 WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/preview', '/edit');
               }
-              WidgetHome.hideShowRotation();
+              //WidgetHome.hideShowRotation();
               console.log(">>>>>", WidgetHome.data);
             }
             else
@@ -38,7 +41,7 @@
               };
               var dummyData = {url: "https://docs.google.com/presentation/d/1GajPA3eOHYT39vkDj_NX8v0FjiumnBgGtOyIHROyhd8/preview#slide=id.gc6fa3c898_0_0"};
               WidgetHome.data.content.url = dummyData.url;
-              WidgetHome.hideShowRotation();
+             // WidgetHome.hideShowRotation();
             }
           };
           WidgetHome.error = function (err) {
@@ -64,7 +67,39 @@
           iFrame.src = url + "";
         });
 
-        window.oniFrameLoad = function(){
+        WidgetHome.initRotate = function () {
+          buildfire.appearance.titlebar.hide();
+          setTimeout(function(){
+            var iFrame = document.getElementById("slideFrame");
+            iFrame.style.webkitTransform = 'rotate(90deg)'; 
+            iFrame.style.mozTransform = 'rotate(90deg)'; 
+            iFrame.style.msTransform = 'rotate(90deg)'; 
+            iFrame.style.oTransform = 'rotate(90deg)'; 
+            iFrame.style.transform = "rotate(90deg)";
+
+            WidgetHome.setRotateSize();
+            
+            if(buildfire.isWeb())
+              window.addEventListener("resize",function(){
+                WidgetHome.setRotateSize();
+              });
+              
+          }, 500); 
+        }
+
+        WidgetHome.setRotateSize = function () {
+          var iFrame = document.getElementById("slideFrame");
+          var rotatedWidth = window.innerHeight-((iPhoneXandIphone11)?44:0),
+          rotatedHeight = window.innerWidth;
+          iFrame.style.width = (rotatedWidth+5)+"px";
+          iFrame.style.maxWidth = (rotatedWidth+5)+"px";
+          iFrame.style.height = rotatedHeight+"px";
+          iFrame.style.position = "absolute";
+          iFrame.style.left = (((rotatedHeight/2)-rotatedWidth/2)-2)+"px";
+          iFrame.style.top = ((rotatedHeight/2)-rotatedWidth/2)*(-1)+((iPhoneXandIphone11)?44:0)+"px";
+        };
+
+      //  window.oniFrameLoad = function(){
          /* var previousOrientation=2;//2 portrait, 1 landscape
           window.addEventListener("deviceorientation", function(event){
             var xAxis = event.alpha;
@@ -91,7 +126,7 @@
                 }
             }
           }, true);*/
-
+          /*
 
             frame= document.getElementById("slideFrame");
             frame.style.width =  window.innerWidth+"px";
@@ -149,10 +184,10 @@
               WidgetHome.rotate();
             });
             listeners=true;
-        }
+        }*/
 
 
-        WidgetHome.hideShowRotation = function()
+       /* WidgetHome.hideShowRotation = function()
         {
           var xmlHttp = new XMLHttpRequest();
           var time;
@@ -174,14 +209,14 @@
             isItFailed=true;
             document.getElementById("containerFS").style.visibility="hidden";
           }
-        }
+        }*/
 
-        var goBack = buildfire.navigation.onBackButtonClick ;
+       /*var goBack = buildfire.navigation.onBackButtonClick ;
         buildfire.navigation.onBackButtonClick = function(){
           if(isInFullScreen)WidgetHome.rotate()
           else goBack();
-        }
-        WidgetHome.rotate = function(){
+        }*/
+       /* WidgetHome.rotate = function(){
           var rotatedWidth;
           var rotatedHeight;
           fullScreen.style.visibility="hidden";
@@ -245,7 +280,7 @@
                 isInFullScreen=false;
               }, 100);
             }
-        }
+        }*/
 
         WidgetHome.onUpdateCallback = function (event) {
           if (event && event.tag === TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO) {
@@ -259,7 +294,7 @@
             else if ((WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'editable')){
               WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/preview', '/edit');
             }
-            WidgetHome.hideShowRotation();
+           // WidgetHome.hideShowRotation();
           }
         };
 

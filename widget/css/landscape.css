@@ -1,4 +1,4 @@
-
+/*
 iframe{
 	-webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
@@ -74,6 +74,6 @@ iframe{
   :root {
     --sat: env(safe-area-inset-top);
     --sar: env(safe-area-inset-right);
-    --sab: env(safe-area-inset-bottom); /* THIS ONE GETS US THE HOME BAR HEIGHT */
+    --sab: env(safe-area-inset-bottom); 
     --sal: env(safe-area-inset-left);
-}
+}*/

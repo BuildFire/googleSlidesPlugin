@@ -38,14 +38,19 @@
 <div class="content"
      style="-webkit-overflow-scrolling: touch !important;height: 100%; background-color: black;"
      ng-controller="WidgetHomeCtrl as WidgetHome">
-<iframe id="slideFrame" src="{{WidgetHome.data.content.url | returnUrl }}"
+     <iframe id="slideFrame" src="{{WidgetHome.data.content.url | returnUrl }}"
+      ng-if="WidgetHome.data.content.url"
+       style="height: 100%;position: relative">
+      </iframe>
+    </div>
+<!--
+  <iframe id="slideFrame" src="{{WidgetHome.data.content.url | returnUrl }}"
           ng-if="WidgetHome.data.content.url"
 style="height: 100%;position: relative" onload="oniFrameLoad();">
         </iframe>
-
         <div ng-if="WidgetHome.data.content.url" id="containerFS" class="containerFS" style="visibility: hidden; cursor:pointer; width: 28px;height: 28px; position: fixed;left: 270px;bottom: 0px; z-index: 1000;">
           <div id="fullScreen" class="fullScreen" ></div>
          </div>
-        </div>
+-->
 </body>
 </html>
