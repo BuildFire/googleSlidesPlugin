@@ -20,7 +20,9 @@
         
 
         WidgetHome.init = function () {
+          WidgetHome.initRotate();
           WidgetHome.success = function (result) {
+            WidgetHome.initRotate();
             if(result.data && result.id) {
               WidgetHome.data = result.data;
               if (!WidgetHome.data.content)
