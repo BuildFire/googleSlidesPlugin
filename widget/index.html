@@ -4,14 +4,16 @@
   <!-- Meta -->
   <meta charset="utf-8">
   <meta name="viewport"
-        content="width=device-width, initial-scale=1.0,minimum-scale=1.0,
-        maximum-scale=1.0">
+    content="width=device-width, initial-scale=1.0,minimum-scale=1.0,
+      maximum-scale=1.0">
 
     <!-- CSS -->
   <link href="../../../styles/helper.css" rel="stylesheet">
   <link href="../../../styles/siteIcons.css" rel="stylesheet">
   <link rel="stylesheet" href="../../../styles/appStyle.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../scripts/owlCarousel/owlCarousel.css">
+  <link rel="stylesheet" href="./css/landscape.css">
 
   <!-- JS -->
   <script src="../../../scripts/buildfire.js"></script>
@@ -34,12 +36,21 @@
 </head>
 <body>
 <div class="content"
-     style="-webkit-overflow-scrolling: touch !important;height: 100%;"
+     style="-webkit-overflow-scrolling: touch !important;height: 100%; background-color: black;"
      ng-controller="WidgetHomeCtrl as WidgetHome">
-<iframe id="slideFrame" src="{{WidgetHome.data.content.url | returnUrl }}"
+     <iframe id="slideFrame" src="{{WidgetHome.data.content.url | returnUrl }}"
+      ng-if="WidgetHome.data.content.url"
+       style="height: 100%;position: relative" onload="rotateFromIndex()">
+      </iframe>
+    </div>
+<!--
+  <iframe id="slideFrame" src="{{WidgetHome.data.content.url | returnUrl }}"
           ng-if="WidgetHome.data.content.url"
-          style="height: 100%;position: relative" ></iframe>
-
-   </div>
+style="height: 100%;position: relative" onload="oniFrameLoad();">
+        </iframe>
+        <div ng-if="WidgetHome.data.content.url" id="containerFS" class="containerFS" style="visibility: hidden; cursor:pointer; width: 28px;height: 28px; position: fixed;left: 270px;bottom: 0px; z-index: 1000;">
+          <div id="fullScreen" class="fullScreen" ></div>
+         </div>
+-->
 </body>
 </html>
