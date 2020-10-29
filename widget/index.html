@@ -4,8 +4,8 @@
   <!-- Meta -->
   <meta charset="utf-8">
   <meta name="viewport"
-        content="width=device-width, initial-scale=1.0,minimum-scale=1.0,
-        maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
+    content="width=device-width, initial-scale=1.0,minimum-scale=1.0,
+      maximum-scale=1.0">
 
     <!-- CSS -->
   <link href="../../../styles/helper.css" rel="stylesheet">
@@ -40,7 +40,7 @@
      ng-controller="WidgetHomeCtrl as WidgetHome">
      <iframe id="slideFrame" src="{{WidgetHome.data.content.url | returnUrl }}"
       ng-if="WidgetHome.data.content.url"
-       style="height: 100%;position: relative">
+       style="height: 100%;position: relative" onload="rotateFromIndex()">
       </iframe>
     </div>
 <!--
