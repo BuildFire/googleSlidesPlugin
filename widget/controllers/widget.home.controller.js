@@ -6,9 +6,9 @@
     .controller('WidgetHomeCtrl', ['$scope', 'Buildfire', 'DataStore', 'TAG_NAMES', '$rootScope', 'STATUS_CODE',
       function ($scope, Buildfire, DataStore, TAG_NAMES, $rootScope, STATUS_CODE) {
         var WidgetHome = this;
-        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        var aspect = window.screen.width / window.screen.height
-        var iPhoneXandIphone11 = isIOS && aspect.toFixed(3) === "0.462";
+        // var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        // var aspect = window.screen.width / window.screen.height
+        // var iPhoneXandIphone11 = isIOS && aspect.toFixed(3) === "0.462";
         var oneTime=false;
         //var homeBar=Number(getComputedStyle(document.documentElement).getPropertyValue("--sab").split('px')[0]);
         //var isAndroid = /(android)/i.test(navigator.userAgent);
@@ -98,14 +98,14 @@
 
         WidgetHome.setRotateSize = function () {
           var iFrame = document.getElementById("slideFrame");
-          var rotatedWidth = window.innerHeight-((iPhoneXandIphone11)?44:0),
+          var rotatedWidth = window.innerHeight,
           rotatedHeight = window.innerWidth;
           iFrame.style.width = (rotatedWidth+5)+"px";
           iFrame.style.maxWidth = (rotatedWidth+5)+"px";
           iFrame.style.height = rotatedHeight+"px";
           iFrame.style.position = "absolute";
           iFrame.style.left = (((rotatedHeight/2)-rotatedWidth/2)-2)+"px";
-          iFrame.style.top = ((rotatedHeight/2)-rotatedWidth/2)*(-1)+((iPhoneXandIphone11)?44:0)+"px";
+          iFrame.style.top = ((rotatedHeight/2)-rotatedWidth/2)*(-1)+"px";
         };
 
       //  window.oniFrameLoad = function(){
