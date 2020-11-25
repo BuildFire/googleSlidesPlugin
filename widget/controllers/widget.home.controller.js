@@ -21,6 +21,7 @@
 
         WidgetHome.init = function () {
           WidgetHome.initRotate();
+          WidgetHome.isItHomeScreen = (new URLSearchParams(window.location.search).get('fid').split("=")[0]=="launcherPluginv");
           WidgetHome.success = function (result) {
             WidgetHome.initRotate();
             if(result.data && result.id) {
@@ -96,6 +97,10 @@
         }
         }
 
+        WidgetHome.goBack= function () {
+          buildfire.navigation.goBack();
+        }
+        
         WidgetHome.setRotateSize = function () {
           var iFrame = document.getElementById("slideFrame");
           var rotatedWidth = window.innerHeight-((iPhoneXandIphone11)?44:0),
