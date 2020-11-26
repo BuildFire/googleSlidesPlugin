@@ -3,7 +3,21 @@ iframe{
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
-  }/*
+  }
+ 
+.menuClass{
+	border-radius: 5px 5px 5px 5px;
+    font-size: 21px;
+    padding: 4px 10px;
+    position: absolute;
+    overflow: hidden;
+    top: 11px;
+    left: 33px;
+    z-index: 1040;
+	cursor: pointer;
+	width: 41px;
+}
+  /*
 .fullScreen:hover{
 	filter: brightness(100%);
   }
