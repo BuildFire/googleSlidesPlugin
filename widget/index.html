@@ -44,7 +44,7 @@
       ng-if="WidgetHome.data.content.url"
        style="height: 100%;position: relative" onload="rotateFromIndex()">
       </iframe>
-      <div ng-hide="WidgetHome.isItHomeScreen" ng-click="WidgetHome.goBack()" class="menuClass titleBarBackgroundTheme" >
+      <div ng-if="!WidgetHome.isWeb()" ng-hide="WidgetHome.isItHomeScreen" ng-click="WidgetHome.goBack()" class="menuClass titleBarBackgroundTheme" >
         <a id="btnBack" class="back-btn-icon icon icon-chevron-left titleBarTextAndIcons"></a>
       </div>
 </div>

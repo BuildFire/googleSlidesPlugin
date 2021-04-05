@@ -75,26 +75,32 @@
           WidgetHome.initRotate();
         }
         WidgetHome.initRotate = function () {
-          if(!oneTime)buildfire.appearance.titlebar.hide();
-          var iFrame = document.getElementById("slideFrame");
-          if(iFrame && !oneTime)
-          {
-          oneTime=true;
-          setTimeout(function(){
-            iFrame.style.webkitTransform = 'rotate(90deg)'; 
-            iFrame.style.mozTransform = 'rotate(90deg)'; 
-            iFrame.style.msTransform = 'rotate(90deg)'; 
-            iFrame.style.oTransform = 'rotate(90deg)'; 
-            iFrame.style.transform = "rotate(90deg)";
+          if(!buildfire.isWeb()){
+              if(!oneTime)buildfire.appearance.titlebar.hide();
+              var iFrame = document.getElementById("slideFrame");
+              if(iFrame && !oneTime)
+              {
+              oneTime=true;
+              setTimeout(function(){
+                iFrame.style.webkitTransform = 'rotate(90deg)'; 
+                iFrame.style.mozTransform = 'rotate(90deg)'; 
+                iFrame.style.msTransform = 'rotate(90deg)'; 
+                iFrame.style.oTransform = 'rotate(90deg)'; 
+                iFrame.style.transform = "rotate(90deg)";
 
-            WidgetHome.setRotateSize();
-            
-            if(buildfire.isWeb())
-              window.addEventListener("resize",function(){
                 WidgetHome.setRotateSize();
-              });
-          }, 500); 
+                
+                if(buildfire.isWeb())
+                  window.addEventListener("resize",function(){
+                    WidgetHome.setRotateSize();
+                  });
+              }, 500); 
+            }
+          }
         }
+
+        WidgetHome.isWeb = function () {
+          return buildfire.isWeb();
         }
 
         WidgetHome.goBack= function () {
