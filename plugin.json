@@ -3,7 +3,8 @@
 ,"pluginName":"Google Slides",
   "pluginDescription":"Seamlessly embed Google Slides into your mobile app."
 ,"pluginIcon": "icon.png"
-, "supportSite":"http://learn.appdocumentation.com/plugin-tutorials/google-slides-plugin-tutorial"
+, "supportSite":"http://learn.appdocumentation.com/plugin-tutorials/google-slides-plugin-tutorial",
+  "supportEmail":"support@buildfire.com",
 ,"control":{
   "content":{
     "enabled":true
