@@ -1,10 +1,10 @@
 {
   "author":"Buildfire"
 ,"pluginName":"Google Slides",
-  "pluginDescription":"Google Slides makes your ideas shine with a variety of presentation themes, hundreds of fonts, embedded video, animations, and more.Related Topics:Google Plus, Students"
-,"supportEmail":"support@buildfire.com"
+  "pluginDescription":"Seamlessly embed Google Slides into your mobile app."
 ,"pluginIcon": "icon.png"
-, "supportSite":"http://learn.appdocumentation.com/plugin-tutorials/google-slides-plugin-tutorial"
+, "supportSite":"http://learn.appdocumentation.com/plugin-tutorials/google-slides-plugin-tutorial",
+  "supportEmail":"support@buildfire.com",
 ,"control":{
   "content":{
     "enabled":true
@@ -19,5 +19,31 @@
 ,"widget":{
 },
   "features" : [],
-  "languages" : ["en"]
+  "languages" : ["en"],
+  "media": [
+    {
+      "type": "image-resource",
+      "path": "1-Plugin.png"
+    },
+    {
+      "type": "image-resource",
+      "path": "2-Benefits.png"
+    },
+    {
+      "type": "image-resource",
+      "path": "3-Use-Cases.png"
+    },
+    {
+      "type": "image-resource",
+      "path": "4-Content-Tab.png"
+    },
+    {
+      "type": "image-resource",
+      "path": "5-Analytics-Tab.png"
+    },
+    {
+      "type": "youtube-video",
+      "path": "https://www.youtube.com/watch?v=H8em0wHjagM"
+    }
+  ]
 }
