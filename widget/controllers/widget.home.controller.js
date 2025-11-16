@@ -20,7 +20,6 @@
         
 
         WidgetHome.init = function () {
-          WidgetHome.isItHomeScreen = (new URLSearchParams(window.location.search).get('fid').split("=")[0]=="launcherPluginv");
           WidgetHome.success = function (result) {
             if(result.data && result.id) {
               WidgetHome.data = result.data;
@@ -66,14 +65,7 @@
         });
 
         WidgetHome.isWeb = function () {
-            if (!buildfire.isWeb()) {
-                buildfire.appearance.titlebar.hide();
-            }
           return buildfire.isWeb();
-        }
-
-        WidgetHome.goBack= function () {
-          buildfire.navigation.goBack();
         }
 
       //  window.oniFrameLoad = function(){

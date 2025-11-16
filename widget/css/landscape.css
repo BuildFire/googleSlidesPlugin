@@ -27,6 +27,8 @@ iframe{
     position: fixed;
     left: calc(50vw - 50vh);
     top: calc(50vh - 50vw);
+    padding-left: var(--bf-safe-area-inset-top);
+    padding-right: var(--bf-safe-area-inset-bottom);
 }
   /*
 .fullScreen:hover{
