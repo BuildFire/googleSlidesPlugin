@@ -20,10 +20,7 @@
         
 
         WidgetHome.init = function () {
-          WidgetHome.initRotate();
-          WidgetHome.isItHomeScreen = (new URLSearchParams(window.location.search).get('fid').split("=")[0]=="launcherPluginv");
           WidgetHome.success = function (result) {
-            WidgetHome.initRotate();
             if(result.data && result.id) {
               WidgetHome.data = result.data;
               if (!WidgetHome.data.content)
@@ -34,8 +31,6 @@
               else if ((WidgetHome.data.content.mode && WidgetHome.data.content.url && WidgetHome.data.content.mode == 'editable')){
                 WidgetHome.data.content.url = WidgetHome.data.content.url.replace('/preview', '/edit');
               }
-              console.log(">>>>>", WidgetHome.data);
-              WidgetHome.initRotate();
             }
             else
             {
@@ -50,9 +45,7 @@
             if (err && err.code !== STATUS_CODE.NOT_FOUND) {
               console.error('Error while getting data', err);
             }
-            WidgetHome.initRotate();
           };
-          WidgetHome.initRotate();
           DataStore.get(TAG_NAMES.GOOGLE_APPS_PRESENTATION_INFO).then(WidgetHome.success, WidgetHome.error);
         };
 
@@ -71,53 +64,9 @@
           iFrame.src = url + "";
         });
 
-        window.rotateFromIndex = function () {
-          WidgetHome.initRotate();
-        }
-        WidgetHome.initRotate = function () {
-          if(!buildfire.isWeb()){
-              if(!oneTime)buildfire.appearance.titlebar.hide();
-              var iFrame = document.getElementById("slideFrame");
-              if(iFrame && !oneTime)
-              {
-              oneTime=true;
-              setTimeout(function(){
-                iFrame.style.webkitTransform = 'rotate(90deg)'; 
-                iFrame.style.mozTransform = 'rotate(90deg)'; 
-                iFrame.style.msTransform = 'rotate(90deg)'; 
-                iFrame.style.oTransform = 'rotate(90deg)'; 
-                iFrame.style.transform = "rotate(90deg)";
-
-                WidgetHome.setRotateSize();
-                
-                if(buildfire.isWeb())
-                  window.addEventListener("resize",function(){
-                    WidgetHome.setRotateSize();
-                  });
-              }, 500); 
-            }
-          }
-        }
-
         WidgetHome.isWeb = function () {
           return buildfire.isWeb();
         }
-
-        WidgetHome.goBack= function () {
-          buildfire.navigation.goBack();
-        }
-        
-        WidgetHome.setRotateSize = function () {
-          var iFrame = document.getElementById("slideFrame");
-          var rotatedWidth = window.innerHeight,
-          rotatedHeight = window.innerWidth;
-          iFrame.style.width = (rotatedWidth+5)+"px";
-          iFrame.style.maxWidth = (rotatedWidth+5)+"px";
-          iFrame.style.height = rotatedHeight+"px";
-          iFrame.style.position = "absolute";
-          iFrame.style.left = (((rotatedHeight/2)-rotatedWidth/2)-2)+"px";
-          iFrame.style.top = ((rotatedHeight/2)-rotatedWidth/2)*(-1)+"px";
-        };
 
       //  window.oniFrameLoad = function(){
          /* var previousOrientation=2;//2 portrait, 1 landscape

@@ -4,18 +4,19 @@ iframe{
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
   }
- 
-.menuClass{
-	border-radius: 5px 5px 5px 5px;
-    font-size: 21px;
-    padding: 4px 10px;
-    position: absolute;
-    overflow: hidden;
-    top: 11px;
-    left: 40px;
-    z-index: 1040;
-	cursor: pointer;
-	width: 41px;
+
+
+.mobile-view #slideFrame {
+    transform: rotate(90deg);
+    width: 100vh;
+    max-width: 100vh;
+    height: 100vw;
+    max-height: 100vw;
+    position: fixed;
+    left: calc(50vw - 50vh);
+    top: calc(50vh - 50vw);
+    padding-left: var(--bf-safe-area-inset-top);
+    padding-right: var(--bf-safe-area-inset-bottom);
 }
   /*
 .fullScreen:hover{
